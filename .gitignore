@@ -13,6 +13,7 @@
 # Bower
 ######################
 /bower_components/**
+/app/bower_components/**
 
 ######################
 # SASS

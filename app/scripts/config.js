@@ -10,12 +10,12 @@ function configState($stateProvider, $urlRouterProvider, $compileProvider) {
     $compileProvider.debugInfoEnabled(true);
 
     // Set default state
-    $urlRouterProvider.otherwise("/dashboard");
+    $urlRouterProvider.otherwise("/portal_page");
     $stateProvider
 
         // Landing page
         .state('landing', {
-            url: "/landing_page",
+            url: "/portal_page",
             templateUrl: "views/landing_page.html",
             data: {
                 pageTitle: 'Landing page',
