@@ -18,7 +18,7 @@ function configState($stateProvider, $urlRouterProvider, $compileProvider) {
             url: "/portal_page",
             templateUrl: "views/landing_page.html",
             data: {
-                pageTitle: 'Landing page',
+                pageTitle: 'meteorologica',
                 specialClass: 'landing-page'
             }
         })
