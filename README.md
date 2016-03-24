@@ -1,3 +1,9 @@
+
+# Open path the project
+Refers to the atom directory
+
+atom .
+
 # Developing iotplatform
 
 platform was generated using JHipster, you can find documentation and help at [JHipster][].
@@ -27,6 +33,11 @@ specifying a newer version in `bower.json`. You can also run `bower update` and 
 Add the `-h` flag on any command to see how you can use it. For example, `bower update -h`.
 
 # Building for production
+Install project dependencies with npm install
+
+grunt live
+
+grunt build
 
 To optimize the platform client for production, run:
 
