@@ -17,7 +17,7 @@ function googleMapCtrl($scope, $timeout, $http) {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
-    $http.get("http://200.0.29.38:8080/platform/api/public/meteorological").then(function(response){
+    $http.get("/platform/api/public/meteorological").then(function(response){
     //$http.get("http://localhost:1337/200.0.29.38:8080/platform/api/public/meteorological").then(function(response){
       $scope.estaciones = response.data;
       console.log($scope.estaciones);

@@ -10,7 +10,7 @@ angular
 
 function landingCtrl($scope, $http) {
   $scope.buttonTitle = "INGRESO";
-  $http.get("http://200.0.29.38:8080/platform/api/public/meteorological/detail/5612ffceb25b022d1a971e93").then(function(response){
+  $http.get("/platform/api/public/meteorological/detail/570bbdecf259eca2c20e7d72").then(function(response){
     $scope.estacion = response.data;
     $scope.variables = [];
     console.log($scope.estacion);
