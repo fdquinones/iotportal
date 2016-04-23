@@ -8,7 +8,7 @@ angular
     .module('homer')
     .controller('googleMapCtrl', googleMapCtrl)
 
-function googleMapCtrl($scope, $timeout, $http) {
+function googleMapCtrl($scope, $timeout, $http, $compile, $templateCache, $timeout) {
     $scope.mapOptions = {
         zoom: 6,
         center: new google.maps.LatLng(-3.987861111111111, -79.19679722222223),
@@ -17,17 +17,46 @@ function googleMapCtrl($scope, $timeout, $http) {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
-    $http.get("/platform/api/public/meteorological").then(function(response){
-    //$http.get("http://localhost:1337/200.0.29.38:8080/platform/api/public/meteorological").then(function(response){
+    $scope.detallarEstacion = function (markerRoot){
+      $http.get($scope.API_URI_ESTACIONES.DETAIL+ markerRoot.info.id).then(function(response){
+        $scope.infoStation = response.data;
+        $scope.$apply();
+      });
+
+      $scope.infoStation = markerRoot.info;
+      $scope.infoWindow.open( $scope.myMap, markerRoot );
+    };
+
+    $scope.infoStation;
+    $scope.TEMPLATE_INFO = 'templateInfo.html';
+
+    $scope.infoWindow = new google.maps.InfoWindow();
+    var compileElement = $compile($templateCache.get($scope.TEMPLATE_INFO))($scope);
+    $scope.infoWindow.setContent(compileElement[0]);
+
+    $http.get($scope.API_URI_ESTACIONES.ALL).then(function(response){
       $scope.estaciones = response.data;
-      console.log($scope.estaciones);
       $scope.estaciones.forEach(function(item){
-          var estLatLng = {lat: item.latitud, lng: item.longitud};
-          var marker = new google.maps.Marker({
-           position: estLatLng,
-           map: $scope.myMap,
-           title: item.descripcion
-         });
+          if(item.latitud && item.longitud){
+            var estLatLng = {lat: item.latitud, lng: item.longitud};
+            var marker = new google.maps.Marker({
+             position: estLatLng,
+             map: $scope.myMap,
+             title: item.descripcion,
+             info:{
+               id: item.id,
+               nombre: item.nombre,
+               descripcion: item.descripcion
+             }
+            });
+
+            google.maps.event.addListener( marker, 'click', (function(markerRoot) {
+              return function(){
+                $scope.detallarEstacion(markerRoot);
+              };
+            })(marker));
+          }
       });
     });
+
 }
