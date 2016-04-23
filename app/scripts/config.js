@@ -469,5 +469,10 @@ angular
     .config(configState)
     .run(function($rootScope, $state, editableOptions) {
         $rootScope.$state = $state;
+        $rootScope.API_URI_ESTACIONES = {
+          ALL: '/platform/api/public/meteorological/',
+          DETAIL: '/platform/api/public/meteorological/detail/',
+          DETAIL_DETAIL: '/platform/api/public/meteorological/detail/570bbdecf259eca2c20e7d72'
+        };
         editableOptions.theme = 'bs3';
     });
