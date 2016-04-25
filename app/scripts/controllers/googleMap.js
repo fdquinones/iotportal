@@ -20,7 +20,7 @@ function googleMapCtrl($scope, $timeout, $http, $compile, $templateCache, $timeo
     $scope.detallarEstacion = function (markerRoot){
       $http.get($scope.API_URI_ESTACIONES.DETAIL+ markerRoot.info.id).then(function(response){
         $scope.infoStation = response.data;
-        $scope.$apply();
+        //$scope.$apply();
       });
 
       $scope.infoStation = markerRoot.info;
@@ -42,6 +42,7 @@ function googleMapCtrl($scope, $timeout, $http, $compile, $templateCache, $timeo
             var marker = new google.maps.Marker({
              position: estLatLng,
              map: $scope.myMap,
+             animation: google.maps.Animation.DROP,
              title: item.descripcion,
              info:{
                id: item.id,
@@ -50,7 +51,7 @@ function googleMapCtrl($scope, $timeout, $http, $compile, $templateCache, $timeo
              }
             });
 
-            google.maps.event.addListener( marker, 'click', (function(markerRoot) {
+            google.maps.event.addListener( marker, 'mousedown', (function(markerRoot) {
               return function(){
                 $scope.detallarEstacion(markerRoot);
               };
