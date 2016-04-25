@@ -10,7 +10,7 @@ angular
 
 function landingCtrl($scope, $http) {
   $scope.buttonTitle = "INGRESO";
-  $http.get($scope.API_URI_ESTACIONES.DETAIL_DETAIL).then(function(response){
+  $http.get($scope.API_URI_ESTACIONES.DETAIL_DEFAULT).then(function(response){
     $scope.estacion = response.data;
     $scope.variables = [];
     console.log($scope.estacion);
