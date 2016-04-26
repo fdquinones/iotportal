@@ -8,7 +8,7 @@ angular
     .module('homer')
     .controller('googleMapCtrl', googleMapCtrl)
 
-function googleMapCtrl($scope, $timeout, $http, $compile, $templateCache, $timeout) {
+function googleMapCtrl($scope, $timeout, $http, $compile, $templateCache, $timeout, $location, $anchorScroll) {
     $scope.mapOptions = {
         zoom: 6,
         center: new google.maps.LatLng(-3.987861111111111, -79.19679722222223),
@@ -18,13 +18,16 @@ function googleMapCtrl($scope, $timeout, $http, $compile, $templateCache, $timeo
     };
 
     $scope.detallarEstacion = function (markerRoot){
+      $scope.infoStation = markerRoot.info;
       $http.get($scope.API_URI_ESTACIONES.DETAIL+ markerRoot.info.id).then(function(response){
         $scope.infoStation = response.data;
-        //$scope.$apply();
       });
-
-      $scope.infoStation = markerRoot.info;
       $scope.infoWindow.open( $scope.myMap, markerRoot );
+    };
+
+    $scope.scrollTo = function(div) {
+        $location.hash(div);
+        $anchorScroll();
     };
 
     $scope.infoStation;
