@@ -387,9 +387,11 @@
 </section>
 
 <section id="sos">
-  <div class="container">
-    <div class="row text-center">
-        <div class="col-lg-12">
+  <div id="auto"></div>
+  <div id= "prueba" class="container" >
+  <div id="auto"></div>
+    <div id= "prueba1" class="row text-center">
+        <div class="col-lg-12" >
             <h2><span class="text-success">Sensor Observation</span> Service (SOS) </h2>
             <p>
                 La plataforma tiene la implementación del estándard SOS. Dicha implementación se logro usando el cliente 52N Sensor Web.
@@ -398,7 +400,7 @@
                 Gracias al uso del estándard la información puede ser compartida dentro de un marco definido.
             </p>
 
-            <iframe src="http://200.0.29.38:8080/sos-samples/utpl/sos-chart.html" width="90%" height="600px"></iframe>
+            <iframe id="currentElement" src="http://200.0.29.38:8080/sos-samples/utpl/sos-chart.html" width="90%" height="600px"></iframe>
 
             <br/>
             <a class="btn btn-primary btn-xs" href="http://200.0.29.38:8080/52n-sos/static/client/jsClient/#map" target="_blank">Mas...</a>
@@ -486,6 +488,7 @@
         });
 
     });
+
 </script>
 
 
@@ -527,4 +530,12 @@
       </div>
     </div>
   </div>
+</script>
+<script type="text/javascript">
+
+  setInterval(refreshIframe, 60000);
+       function refreshIframe() {
+           var frame = document.getElementById("currentElement");
+           frame.src = frame.src;
+       }
 </script>
