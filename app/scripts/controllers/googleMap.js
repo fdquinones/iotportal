@@ -36,6 +36,7 @@ function googleMapCtrl($scope, $timeout, $http, $compile, $templateCache, $timeo
     $scope.infoWindow = new google.maps.InfoWindow();
     var compileElement = $compile($templateCache.get($scope.TEMPLATE_INFO))($scope);
     $scope.infoWindow.setContent(compileElement[0]);
+    $scope.markesEstaciones = [];
 
     $http.get($scope.API_URI_ESTACIONES.ALL).then(function(response){
       $scope.estaciones = response.data;
@@ -59,8 +60,12 @@ function googleMapCtrl($scope, $timeout, $http, $compile, $templateCache, $timeo
                 $scope.detallarEstacion(markerRoot);
               };
             })(marker));
+
+            $scope.markesEstaciones.push(marker);
           }
       });
+
+     var markerCluster = new MarkerClusterer($scope.myMap, $scope.markesEstaciones);
     });
 
 }
