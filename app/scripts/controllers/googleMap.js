@@ -40,7 +40,10 @@ function googleMapCtrl($scope, $timeout, $http, $compile, $templateCache, $timeo
 
     $http.get($scope.API_URI_ESTACIONES.ALL).then(function(response){
       $scope.estaciones = response.data;
+      var latlngbounds = new google.maps.LatLngBounds();
+
       $scope.estaciones.forEach(function(item){
+
           if(item.latitud && item.longitud){
             var estLatLng = {lat: item.latitud, lng: item.longitud};
             var marker = new google.maps.Marker({
@@ -62,10 +65,24 @@ function googleMapCtrl($scope, $timeout, $http, $compile, $templateCache, $timeo
             })(marker));
 
             $scope.markesEstaciones.push(marker);
+            latlngbounds.extend(marker.getPosition());
           }
       });
 
-     var markerCluster = new MarkerClusterer($scope.myMap, $scope.markesEstaciones);
+      //agrupar estaciones
+      var markerCluster = new MarkerClusterer($scope.myMap, $scope.markesEstaciones);
+
+      // Don't zoom in too far on only one marker
+      if (latlngbounds.getNorthEast().equals(latlngbounds.getSouthWest())) {
+         var extendPoint1 = new google.maps.LatLng(latlngbounds.getNorthEast().lat() + 0.01, latlngbounds.getNorthEast().lng() + 0.01);
+         var extendPoint2 = new google.maps.LatLng(latlngbounds.getNorthEast().lat() - 0.01, latlngbounds.getNorthEast().lng() - 0.01);
+         latlngbounds.extend(extendPoint1);
+         latlngbounds.extend(extendPoint2);
+      }
+
+      //centrar mapa en poligono
+      $scope.myMap.fitBounds(latlngbounds);
+
     });
 
 }
