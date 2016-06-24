@@ -400,7 +400,7 @@
                 Gracias al uso del estándard la información puede ser compartida dentro de un marco definido.
             </p>
 
-            <iframe id="currentElement" src="http://200.0.29.38:8080/sos-samples/utpl/sos-chart.html" width="90%" height="600px"></iframe>
+            <iframe id="currentElementSos" src="http://200.0.29.38:8080/sos-samples/utpl/sos-chart.html" width="90%" height="600px"></iframe>
 
             <br/>
             <a class="btn btn-primary btn-xs" href="http://200.0.29.38:8080/52n-sos/static/client/jsClient/#map" target="_blank">Mas...</a>
@@ -533,9 +533,9 @@
 </script>
 <script type="text/javascript">
 
-  setInterval(refreshIframe, 60000);
+  setInterval(refreshIframe, 240000);
        function refreshIframe() {
-           var frame = document.getElementById("currentElement");
+           var frame = document.getElementById("currentElementSos");
            frame.src = frame.src;
        }
 </script>
