@@ -44,7 +44,7 @@ function googleMapCtrl($scope, $timeout, $http, $compile, $templateCache, $timeo
 
       $scope.estaciones.forEach(function(item){
 
-          if(item.latitud && item.longitud){
+          if(item.latitud && item.longitud && typeof item.latitud == 'number'  && typeof item.longitud == 'number'){
             var estLatLng = {lat: item.latitud, lng: item.longitud};
             var marker = new google.maps.Marker({
              position: estLatLng,
