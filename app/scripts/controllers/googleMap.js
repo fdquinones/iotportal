@@ -37,7 +37,6 @@ function googleMapCtrl($scope, $timeout, $http, $compile, $templateCache, $timeo
     var compileElement = $compile($templateCache.get($scope.TEMPLATE_INFO))($scope);
     $scope.infoWindow.setContent(compileElement[0]);
     $scope.markesEstaciones = [];
-	var regNumber = new RegExp("^-?([1-8]?[1-9]|[1-9]0)\.{1}\d{1,6}");
 
     $http.get($scope.API_URI_ESTACIONES.ALL).then(function(response){
       $scope.estaciones = response.data;
@@ -46,8 +45,7 @@ function googleMapCtrl($scope, $timeout, $http, $compile, $templateCache, $timeo
 	 console.log("----Estaciones que se presentan en el mapa--------");
       $scope.estaciones.forEach(function(item){
 		  
-          if((item.latitud && item.longitud && typeof item.latitud == 'number'  && typeof item.longitud == 'number') 
-			  && (regNumber.exec(item.latitud) && regNumber.exec(item.longitud))){
+          if(item.latitud && item.longitud && typeof item.latitud == 'number'  && typeof item.longitud == 'number'){
 			console.log(item);
             var estLatLng = {lat: item.latitud, lng: item.longitud};
             var marker = new google.maps.Marker({
