@@ -41,10 +41,12 @@ function googleMapCtrl($scope, $timeout, $http, $compile, $templateCache, $timeo
     $http.get($scope.API_URI_ESTACIONES.ALL).then(function(response){
       $scope.estaciones = response.data;
       var latlngbounds = new google.maps.LatLngBounds();
-
+	
+	 console.log("----Estaciones que se presentan en el mapa--------");
       $scope.estaciones.forEach(function(item){
-
+		  
           if(item.latitud && item.longitud && typeof item.latitud == 'number'  && typeof item.longitud == 'number'){
+			console.log(item);
             var estLatLng = {lat: item.latitud, lng: item.longitud};
             var marker = new google.maps.Marker({
              position: estLatLng,
@@ -67,7 +69,10 @@ function googleMapCtrl($scope, $timeout, $http, $compile, $templateCache, $timeo
             $scope.markesEstaciones.push(marker);
             latlngbounds.extend(marker.getPosition());
           }
+		  
+		  
       });
+	  console.log("----Estaciones que se presentan en el mapa--------");
 
       //agrupar estaciones
       var markerCluster = new MarkerClusterer($scope.myMap, $scope.markesEstaciones);
