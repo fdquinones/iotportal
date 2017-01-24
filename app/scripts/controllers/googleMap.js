@@ -41,12 +41,12 @@ function googleMapCtrl($scope, $timeout, $http, $compile, $templateCache, $timeo
     $http.get($scope.API_URI_ESTACIONES.ALL).then(function(response){
       $scope.estaciones = response.data;
       var latlngbounds = new google.maps.LatLngBounds();
-	
-	 console.log("----Estaciones que se presentan en el mapa--------");
+
+	    console.log("----Estaciones que se presentan en el mapa--------");
       $scope.estaciones.forEach(function(item){
-		  
-          if(item.latitud && item.longitud && typeof item.latitud == 'number'  && typeof item.longitud == 'number'){
-			console.log(item);
+
+          if(isValidLatitude(item.latitud) && isValidLongitud(item.longitud)){
+			      console.log(item);
             var estLatLng = {lat: item.latitud, lng: item.longitud};
             var marker = new google.maps.Marker({
              position: estLatLng,
@@ -69,10 +69,11 @@ function googleMapCtrl($scope, $timeout, $http, $compile, $templateCache, $timeo
             $scope.markesEstaciones.push(marker);
             latlngbounds.extend(marker.getPosition());
           }
-		  
-		  
+
+
       });
-	  console.log("----Estaciones que se presentan en el mapa--------");
+
+      console.log("----Estaciones que se presentan en el mapa--------");
 
       //agrupar estaciones
       var markerCluster = new MarkerClusterer($scope.myMap, $scope.markesEstaciones);
@@ -87,6 +88,26 @@ function googleMapCtrl($scope, $timeout, $http, $compile, $templateCache, $timeo
 
       //centrar mapa en poligono
       $scope.myMap.fitBounds(latlngbounds);
+
+      //validar si la latitud estan dentro del rango EPSG:4326
+      function isValidLatitude(itemReference){
+        var _isValid = false;
+        if(itemReference && typeof itemReference == 'number'  && (itemReference >= -180 &&  itemReference <= 180) ){
+          _isValid = true;
+        }
+
+        return _isValid;
+      }
+
+      //validar si la latitud estan dentro del rango EPSG:4326
+      function isValidLongitud(itemReference){
+        var _isValid = false;
+        if(itemReference && typeof itemReference == 'number'  && (itemReference >= -90 &&  itemReference <= 90) ){
+          _isValid = true;
+        }
+
+        return _isValid;
+      }
 
     });
 
