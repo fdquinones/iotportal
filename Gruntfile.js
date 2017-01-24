@@ -6,6 +6,8 @@ module.exports = function (grunt) {
 
     // Show grunt task time
     require('time-grunt')(grunt);
+    // Reemplazar valores en plantilla
+    //require('grunt-template')(grunt);
 
     // Configurable paths for the app
     var appConfig = {
@@ -105,6 +107,31 @@ module.exports = function (grunt) {
                 }]
             },
             server: '.tmp'
+        },
+        // Reemplaza las variables en el portal para cargar paginas externas dinamicamente
+        template: {
+          utpl: {
+              options: {
+                  data: {
+                      pathServer: 'http://200.0.29.38:8080'
+                  }
+              },
+              files: [
+                  { '<%= homer.dist %>/views/landing_page.html':  ['<%= homer.dist %>/views/landing_page.html'] },
+                  { '<%= homer.dist %>/index.html':  ['<%= homer.dist %>/index.html'] }
+              ]
+          },
+          cedia: {
+              options: {
+                  data: {
+                      pathServer: 'http://190.15.141.114'
+                  }
+              },
+              files: [
+                  { '<%= homer.dist %>/views/landing_page.html':  ['<%= homer.dist %>/views/landing_page.html'] },
+                  { '<%= homer.dist %>/index.html':  ['<%= homer.dist %>/index.html'] }
+              ]
+          }
         },
         // Copies remaining files to places other tasks can use
         copy: {
@@ -211,6 +238,21 @@ module.exports = function (grunt) {
         'useminPrepare',
         'concat',
         'copy:dist',
+        'template:utpl',
+        'cssmin',
+        'uglify',
+        'filerev',
+        'usemin',
+        'htmlmin'
+    ]);
+
+    grunt.registerTask('build-cedia', [
+        'clean:dist',
+        'less',
+        'useminPrepare',
+        'concat',
+        'copy:dist',
+        'template:cedia',
         'cssmin',
         'uglify',
         'filerev',

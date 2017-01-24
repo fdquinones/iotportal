@@ -472,7 +472,7 @@ angular
         $rootScope.API_URI_ESTACIONES = {
           ALL: '/platform/api/public/meteorological/',
           DETAIL: '/platform/api/public/meteorological/detail/',
-          DETAIL_DEFAULT: '/platform/api/public/meteorological/detail/1/codigo'
+          DETAIL_DEFAULT: '/platform/api/public/meteorological/detail/8/codigo'
         };
         editableOptions.theme = 'bs3';
     });
