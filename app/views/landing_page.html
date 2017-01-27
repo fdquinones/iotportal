@@ -15,14 +15,14 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="active"><a class="page-scroll" href="#page-top">Inicio</a></li>
+                <li><a class="page-scroll" page-scroll href="#estaciones">Estaciones </a></li>
                 <li><a class="page-scroll" page-scroll href="#objetivos">Objetivos</a></li>
                 <li><a class="page-scroll" page-scroll href="#features">Características</a></li>
                 <li><a class="page-scroll" page-scroll href="#team">Equipo</a></li>
-                <li><a class="page-scroll" page-scroll href="#pricing">Estaciones </a></li>
                 <li><a class="page-scroll" page-scroll href="#sos">Sos </a></li>
 				        <li><a class="page-scroll" page-scroll href="#interpolacion">Interpolación </a></li>
                 <li><a class="page-scroll" page-scroll href="#clients">Fotos</a></li>
-                <li><a  href="http://200.0.29.38:8080/platformdoc/" target="_blank">Manual en línea</a></li>
+                <li><a  href="http://200.0.29.38:8080/platformdoc/" target="_blank">Manual</a></li>
             </ul>
         </div>
     </div>
@@ -71,6 +71,77 @@
         </div>
     </div>
 </header>
+
+<section id="estaciones" class="bg-light">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-12">
+                <h2><span class="text-success">Estaciones </span>Metereológicas</h2>
+                <p>A continuación se presenta la geolocalización de las diferentes estaciones desplegadas en la región. </p>
+            </div>
+        </div>
+
+        <div class="row m-t-lg" ng-controller="googleMapCtrl">
+            <div ui-map="myMap" ui-options="mapOptions" style="height: 600px"></div>
+            <div class="hpanel hgreen" id="detalleEstacionPanel">
+                  <div class="panel-heading hbuilt">
+                      Detalle de estación
+                  </div>
+
+                  <div class="panel-body list">
+                    <div class="stats-title pull-left">
+                      <h4>CÓDIGO: {{infoStation.codigo}}</h4>
+                    </div>
+
+                    <div class="stats-icon pull-right">
+                			<i class="pe-7s-signal fa-4x"></i>
+                		</div>
+
+                		<div class="m-t-xl">
+                			<span class="font-bold no-margins">
+                				{{infoStation.nombre}}
+                			</span>
+                			<br/>
+                			<small>
+                				{{infoStation.descripcion}}
+                			</small>
+                      <br/>
+                      <small>
+                				Fecha Actualización: {{infoStation.ultimaActualizacion | date:'yyyy/MM/dd h:mm a'}}
+                			</small>
+                		</div>
+                    <div class="table-responsive project-list">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th colspan="2">Variable</th>
+                                <th>Valor</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="itemVar in infoStation.variables">
+                                <td>
+                                  <i class="{{itemVar.icono}} fa-2x"></i>
+                                </td>
+                                <td>
+                                  {{itemVar.nombre}}
+                                  <br />
+                                  {{itemVar.descripcion}}
+                                  <br />
+                                  <small><i class="fa fa-clock-o"></i> Actualizado el {{itemVar.fechaRegistro | date:'yyyy/MM/dd h:mm a'}}</small>
+                                </td>
+                                <td><strong>{{itemVar.valor}} {{itemVar.unidad}}</strong></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                  </div>
+
+                </div>
+        </div>
+
+    </div>
+</section>
 
 <section id="objetivos">
     <div class="container">
@@ -283,7 +354,7 @@
             <div class="col-sm-4">
                 <div class="team-member">
                     <img src="images/a8.jpg" class="img-circle" alt="">
-                    <h4><span>Sr.</span> Felipe Quiñones</h4>
+                    <h4><span>Sr.</span> Felipe Quiñonez</h4>
                     <p>Estudiante universitario de la UTPL, en la carrera de Ingeniería en Sistemas Informáticos y Computación.</p>
 
                 </div>
@@ -318,77 +389,6 @@
 </section>
 
 
-<section id="pricing" class="bg-light">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-lg-12">
-                <h2><span class="text-success">Estaciones </span>Metereológicas</h2>
-                <p>A continuación se presenta la geolocalización de las diferentes estaciones desplegadas en la región. </p>
-            </div>
-        </div>
-
-        <div class="row m-t-lg" ng-controller="googleMapCtrl">
-            <div ui-map="myMap" ui-options="mapOptions" style="height: 600px"></div>
-            <div class="hpanel hgreen" id="detalleEstacionPanel">
-                  <div class="panel-heading hbuilt">
-                      Detalle de estación
-                  </div>
-
-                  <div class="panel-body list">
-                    <div class="stats-title pull-left">
-                      <h4>CÓDIGO: {{infoStation.codigo}}</h4>
-                    </div>
-
-                    <div class="stats-icon pull-right">
-                			<i class="pe-7s-signal fa-4x"></i>
-                		</div>
-
-                		<div class="m-t-xl">
-                			<span class="font-bold no-margins">
-                				{{infoStation.nombre}}
-                			</span>
-                			<br/>
-                			<small>
-                				{{infoStation.descripcion}}
-                			</small>
-                      <br/>
-                      <small>
-                				Fecha Actualización: {{infoStation.ultimaActualizacion | date:'yyyy/MM/dd h:mm a'}}
-                			</small>
-                		</div>
-                    <div class="table-responsive project-list">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th colspan="2">Variable</th>
-                                <th>Valor</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="itemVar in infoStation.variables">
-                                <td>
-                                  <i class="{{itemVar.icono}} fa-2x"></i>
-                                </td>
-                                <td>
-                                  {{itemVar.nombre}}
-                                  <br />
-                                  {{itemVar.descripcion}}
-                                  <br />
-                                  <small><i class="fa fa-clock-o"></i> Actualizado el {{itemVar.fechaRegistro | date:'yyyy/MM/dd h:mm a'}}</small>
-                                </td>
-                                <td><strong>{{itemVar.valor}} {{itemVar.unidad}}</strong></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                  </div>
-
-                </div>
-        </div>
-
-    </div>
-</section>
-
 <section id="sos">
   <div id="auto"></div>
   <div id= "prueba" class="container" >
@@ -406,7 +406,7 @@
 
             <!-- sos utpl: http://200.0.29.38:8080/sos-samples/utpl/sos-chart.html-->
             <!-- sos cedia: http://190.15.141.114/sos-samples/utpl/sos-chart.html-->
-            <iframe id="currentElementSos" src="<%- pathServer %>/sos-samples/utpl/sos-chart.html" width="90%" height="600px"></iframe>
+            <!--<iframe id="currentElementSos" src="<%- pathServer %>/sos-samples/utpl/sos-chart.html" width="90%" height="600px"></iframe>-->
 
             <br/>
             <a class="btn btn-primary btn-xs" href="<%- pathServer %>/52n-sos/static/client/jsClient/#map" target="_blank">Mas...</a>
@@ -424,9 +424,9 @@
             <h2><span class="text-success">Interpolación</span> (SOS) </h2>
             <!-- sos utpl: http://200.0.29.38:8080/sos-samples/utpl/sos-chart.html-->
             <!-- sos cedia: http://190.15.141.114/sos-samples/utpl/sos-chart.html-->
-            <iframe id="currentElementSos" src="http://200.0.29.38:8080/sos-samples/idw/idwEstation.html" width="95%" height="1200px"></iframe>
+            <!-- <iframe id="currentElementSos" src="http://200.0.29.38:8080/sos-samples/idw/idwEstation.html" width="95%" height="1200px"></iframe> -->
 
-			<br/>
+			      <br />
             <a class="btn btn-primary btn-xs" href="http://200.0.29.38:8080/sos-samples/idw/idwEstation.html" target="_blank">Mas...</a>
         </div>
     </div>
